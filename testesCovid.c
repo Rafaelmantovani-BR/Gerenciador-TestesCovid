@@ -180,8 +180,20 @@ void cancelar(int n_teste, int quant_testes, Cadastro testes[])
     printf("-> SUA OPCAO: [S/N]: \n");
     scanf("%c", &opcao);
     printf("Valido: %s \n", Valido[aux]);
+// verificar //
+    for(i=0;i<quant_testes;i++)
+      {
 
-    ((opcao == "S") ? (Valido[aux] = "NAO") : (Valido[aux] = "SIM"));
+	if(testes[aux].COVID19  == Valido[aux])
+	{
+
+         for(j=i;ultimo-1;j++)
+        {
+
+	testes[j].COVID19 = testes[j+1].COVID19;
+	ultimo--;
+
+    
   }
   else
   {
@@ -190,7 +202,6 @@ void cancelar(int n_teste, int quant_testes, Cadastro testes[])
 
   getchar();
 }
-
 int main()
 {
   int quant_testes;
