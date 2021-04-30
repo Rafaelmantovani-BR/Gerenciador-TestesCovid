@@ -76,6 +76,19 @@ void Cadastrar_testes(Cadastro **testes, int *posicao)
     exit(1);
   }
 
+   FILE *pont_arq;
+    int i;
+
+    pont_arq = fopen("TesteCovid2.txt","w");
+
+    if(pont_arq == NULL)
+
+    {
+
+        printf("ERRO NA  ABERTURA");
+        return 1;
+    }
+  
   //inicializa da posicao 0 caso não tenha nehum cadastro anteriormente,caso tenha,inicializa da posição seguinte.
   for (i = *posicao; i < (num_testes + *posicao); i++)
   {
@@ -117,17 +130,52 @@ void Cadastrar_testes(Cadastro **testes, int *posicao)
 
   *posicao += num_testes;
 }
+
+
+ fclose(pont_arq);
+}
 //imprime cadatros
 void imprime_cad(Cadastro cadastro)
 {
-  printf("Nome: %s\n", cadastro.Nome);
-  printf("CPF: %s\n", cadastro.CPF);
-  printf("Data de Nascimento: %d/%d/%d\n", cadastro.nascimento.dia, cadastro.nascimento.mes, cadastro.nascimento.ano);
-  printf("Idade: %d anos\n", idade_atual(cadastro.nascimento.ano));
-  printf("Sexo: %c\n", cadastro.Sexo);
-  printf("Bairro: %s \n", cadastro.Bairro);
-  printf("COVID-19: %s \n", cadastro.COVID19);
-  printf("Valido: %s \n", cadastro.valido);
+  
+
+FILE *pont_arq;
+    int i;
+
+    pont_arq = fopen("TesteCovid2.txt","r");
+
+    if(pont_arq == NULL)
+
+    {
+
+        printf("ERRO NA  ABERTURA");
+        return 1;
+    }
+
+	for (i = *posicao; i < (num_testes + *posicao); i++)
+  {
+
+   printf("\n----------------------------------------------------------------------\n");
+   printf("                           Teste %d\n", i + 1);
+   printf("\n----------------------------------------------------------------------\n");
+    
+   fprintf("Nome: %s\n", testes[i].Nome);
+   fprintf("CPF: %s\n", testes[i].CPF);
+   fprintf("Data de Nascimento: %d/%d/%d\n", testes[i].nascimento.dia, testes[i].nascimento.mes, testes[i].nascimento.ano);
+   fprintf("Idade: %d anos\n", idade_atual(testes[i].nascimento.ano));
+   fprintf("Sexo: %c\n", testes[i].Sexo);
+   fprintf("Bairro: %s \n", testes[i].Bairro);
+   fprintf("COVID-19: %s \n", testes[i].COVID19);
+   fprintf("Valido: %s \n", testes[i].valido);
+
+}
+
+	
+    fclose(pont_arq);
+
+   
+}
+
 }
 
 //consulta o teste pelo nome cadastrado.
@@ -307,14 +355,11 @@ int main()
       break;
 
     case 5:
-      for (i = 0; i < quant_testes; i++)
-      {
-        printf("\n----------------------------------------------------------------------\n");
-        printf("                           Teste %d\n", i + 1);
-        printf("\n----------------------------------------------------------------------\n");
-        imprime_cad(testes[i]);
-        printf("\n----------------------------------------------------------------------\n");
-      }
+      
+       
+       imprime_cad(testes[i]);
+       
+      
       getchar();
       printf("\n----------------------------------------------------------------------\n");
       break;
